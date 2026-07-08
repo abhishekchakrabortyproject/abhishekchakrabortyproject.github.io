@@ -121,6 +121,10 @@ header{
   background:rgba(20,19,18,0.85);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
+  transition: transform 0.25s ease;
+}
+header.header-hidden{
+  transform: translateY(-100%);
 }
 nav{
   max-width:1080px; margin:0 auto; padding:16px 28px;
@@ -682,6 +686,17 @@ footer{
   document.querySelectorAll('.navlinks a').forEach(a=>{
     a.addEventListener('click', ()=>document.getElementById('navlinks').classList.remove('open'));
   });
+
+  // Hide header fully while scrolling, show it again once scrolling stops
+  const siteHeader = document.querySelector('header');
+  let scrollStopTimer;
+  window.addEventListener('scroll', () => {
+    siteHeader.classList.add('header-hidden');
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(() => {
+      siteHeader.classList.remove('header-hidden');
+    }, 250);
+  }, {passive:true});
 </script>
 
 </body>

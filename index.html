@@ -193,14 +193,22 @@ h1{
 
 .hero-portrait{
   position:relative; justify-self:center;
+  width:min(340px, 80vw);
 }
 .portrait-frame{
-  position:relative; width:min(340px, 80vw);
+  position:relative;
   border:1px solid var(--line);
   padding:14px;
 }
-.portrait-frame img{
-  width:100%; aspect-ratio:1/1; object-fit:cover; object-position:top;
+.portrait-frame .square{
+  position:relative;
+  width:100%;
+  padding-top:100%; /* bulletproof 1:1 box, immune to aspect-ratio/grid quirks */
+  overflow:hidden;
+}
+.portrait-frame .square img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover; object-position:top center;
   filter:grayscale(0.15) contrast(1.05);
 }
 .portrait-frame::after{
@@ -280,6 +288,20 @@ section{padding:100px 0; position:relative; border-top:1px solid var(--line);}
   content:""; position:absolute; right:0; top:-3px; width:6px; height:6px;
   border-top:1px solid var(--glow); border-right:1px solid var(--glow); transform:rotate(45deg);
 }
+
+/* ---------- Prototype Gallery ---------- */
+.proto-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px;}
+@media (max-width:760px){ .proto-grid{grid-template-columns:1fr;} }
+.proto-main{border:1px solid var(--line); overflow:hidden;}
+.proto-main img{width:100%; height:340px; object-fit:cover; filter:grayscale(0.1) contrast(1.05);}
+.proto-side{display:flex; flex-direction:column; gap:24px;}
+.proto-card{border:1px solid var(--line); overflow:hidden; flex:1;}
+.proto-card img{width:100%; height:158px; object-fit:cover; filter:grayscale(0.1) contrast(1.05);}
+@media (max-width:760px){ .proto-card img{height:220px;} }
+.proto-cap{padding:18px 20px; border-top:1px solid var(--line);}
+.proto-cap .tag{font-family:var(--mono); font-size:0.7rem; color:var(--glow); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;}
+.proto-cap h4{font-family:var(--display); font-size:1.02rem; margin-bottom:4px;}
+.proto-cap p{color:var(--concrete-500); font-size:0.85rem;}
 
 /* ---------- Experience / Timeline ---------- */
 .timeline{border-left:1px solid var(--line); padding-left:32px; margin-left:6px;}
@@ -372,6 +394,7 @@ footer{
     <div class="navlinks" id="navlinks">
       <a href="#about">About</a>
       <a href="#journey">Innovation</a>
+      <a href="#prototype">Prototype</a>
       <a href="#experience">Experience</a>
       <a href="#achievements">Achievements</a>
       <a href="#contact">Contact</a>
@@ -401,7 +424,9 @@ footer{
       <div class="hero-portrait">
         <div class="beam" aria-hidden="true"></div>
         <div class="portrait-frame">
-          <img src="assets/images/profile.jpg" alt="Abhishek Chakraborty, civil engineer and founder of LumiWall AI" width="700" height="700">
+          <div class="square">
+            <img src="assets/images/profile.jpg" alt="Abhishek Chakraborty, civil engineer and founder of LumiWall AI" width="700" height="700">
+          </div>
         </div>
       </div>
     </div>
@@ -470,6 +495,35 @@ footer{
             <li>Combines civil engineering with sustainable design</li>
             <li>Aims to optimize natural lighting and reduce energy use</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOTYPE GALLERY -->
+  <section id="prototype">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Prototype Gallery</p>
+        <h2>The physical model behind the idea</h2>
+        <p>A hand-built test rig demonstrating the light-transmitting concrete concept, alongside the design intent it was built to prove out.</p>
+      </div>
+      <div class="proto-grid reveal">
+        <div class="proto-main">
+          <img src="assets/images/prototype-wide.jpg" alt="Lumina Concrete physical prototype: a concrete pedestal supporting a bolted test panel embedded with light-transmitting elements" loading="lazy" width="1280" height="720">
+          <div class="proto-cap">
+            <span class="tag">Prototype &middot; Front View</span>
+            <h4>Lumina Concrete test rig</h4>
+            <p>Built and demonstrated during diploma studies at Al-Kabir Polytechnic, Jamshedpur.</p>
+          </div>
+        </div>
+        <div class="proto-side">
+          <div class="proto-card">
+            <img src="assets/images/prototype-top.jpg" alt="Top view of the Lumina Concrete prototype showing the embedded light-transmitting pattern" loading="lazy" width="720" height="1280">
+          </div>
+          <div class="proto-card">
+            <img src="assets/images/prototype-concept.jpg" alt="Conceptual diagram of the light-transmitting concrete unit showing a 1 foot by 1 foot opening with 2 inch wall thickness on a 1.5 by 1.5 foot base" loading="lazy" width="1536" height="1024">
+          </div>
         </div>
       </div>
     </div>
